@@ -1,0 +1,157 @@
+.app-header {
+    background-color: #163a6c;
+    display: flex;
+    justify-content: space-between;
+    height: 70px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+}
+
+.title {
+    font-family: Arial, sans-serif;
+    font-size: 30px;
+    color: aliceblue;
+    position: relative;
+    top: -10px;
+}
+
+.contact{
+    font-family: Georgia, serif;
+    font-size: 15px;
+    color: aliceblue;
+    position: relative;
+    text-align: right;
+    right: 30px;
+    padding:0;
+    margin: 5px;
+    top: 7px;
+}
+
+.ncl-logo{
+    height: 50px;
+    position: relative;
+    left: 30px;
+    top: 10px;
+}
+
+
+.nav-item{
+    width: 100px;
+    height: 32px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 18px;
+    border-radius: 24px;
+    background-color: white;
+}
+
+.nav-rad{
+    width: 0;
+    height: 0;
+    opacity: 0;
+}
+
+.global-graph{
+    position: relative;
+    left: 70px;
+    z-index: 1;
+    font-size: 30px;
+}
+
+.global-graph-graph{
+    margin-top: -80px;
+    display: flex;
+    justify-content: center;
+}
+
+.range-slider{
+    background-color: white;
+    padding-left: 20%;
+    padding-right: 20%;
+    margin-top: -50px;
+}
+
+.psd-graph{
+    margin-top: -30px;
+    width: 40%;
+    /*border: 2px solid blue;*/
+}
+
+.psd-graph-graph{
+    float: right;
+    /*width: 90%;*/
+    /*border: 2px solid red;*/
+}
+
+.dash-board{
+    width: 60%
+}
+.dash-board-frame{
+    background-color: white;
+    width: 70%;
+    height: 80%;
+    /*border: 2px solid red;*/
+    margin-top: 10px;
+    margin-left: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+}
+
+.dash-board-text{
+    margin-top: 20px;
+    margin-left: 20px;
+}
+
+.dash-board-text-line{
+    margin: 5px;
+}
+
+.dash-board-button{
+    width: 90px;
+    height: 20px;
+    margin-left: 5px;
+    margin-right: 5px;
+    color: white;
+    background-color: #163a6c;
+    border: none;
+    border-radius: 8px;
+}
+.dash-board-button:active{
+    background-color: white;
+    color: #163a6c;
+}
+
+.sample{
+    display: flex;
+    justify-content: center;
+    padding: 0;
+}
+
+.sample-signals{
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+
+
+.tst1{
+    background-color: white;
+    width: 400px;
+    height: 250px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+    margin-top: 30px;
+    margin-right: 20px;
+    margin-left: 90px;
+
+}
+
+.cut-sample{
+    display: flex;
+    justify-content: space-evenly;
+    padding: 0;
+}
+
+
+
+.cut-graph{
+    margin-left: -30px;
+}
