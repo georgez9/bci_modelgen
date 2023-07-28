@@ -25,6 +25,6 @@ def init_figs():
     ], autosize=False, width=500, height=400, plot_bgcolor='white', paper_bgcolor='rgba(0,0,0,0)',)
     psd_fig.update_traces(line=dict(color="#CF382A", width=1.5), fill='tozeroy')
     psd_fig.update_xaxes(gridcolor="#B8B8B8", range=[0, 60])
-    psd_fig.update_yaxes(range=[0, 20])
+    psd_fig.update_yaxes(range=[0, 5])
 
     return global_fig, psd_fig
