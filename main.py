@@ -3,6 +3,7 @@ from figures import init_figs
 from tcp_server import tcp_client_processing
 from multiprocessing import Process, Manager, Queue
 import numpy as np
+from analysis import baseline_shift, filtered, show_psd
 
 
 my_global_fig, my_psd_fig = init_figs()
@@ -39,7 +40,6 @@ app.layout = html.Div([
         ], style={'textAlign': 'right', 'width': '50%', 'padding-top': '20px', 'padding-right': '50px'})
     ], style={'display': 'flex'}),
     html.Div([
-        html.Div(['Global Graph'], className="global-graph"),
         html.Div([dcc.Graph(id='sample-graph', figure=my_global_fig)], className="global-graph-graph"),
         dcc.Interval(id='interval-component', interval=1 * 1000, n_intervals=0, disabled=True),
         html.Div([
@@ -49,7 +49,7 @@ app.layout = html.Div([
         ], className="range-slider", )
     ]),
     html.Div([
-        html.Div([dcc.Graph(id='cut-graph', figure=my_psd_fig, className='psd-graph-graph')], className="psd-graph"),
+        html.Div([dcc.Graph(id='psd-graph', figure=my_psd_fig, className='psd-graph-graph')], className="psd-graph"),
         html.Div([
             html.Div([], className='dash-board-frame')
         ], className='dash-board')
@@ -102,17 +102,26 @@ def button_clicked(start_stop_clicks, exit_clicks):
     return start_stop_clicks, exit_clicks
 
 
-@callback(Output('sample-graph', 'figure'),
-          Input('interval-component', 'n_intervals'))
-def update_metrics():
-    data_list = d
+@callback(
+    Output('sample-graph', 'figure'),
+    Output('psd-graph', 'figure'),
+    Input('interval-component', 'n_intervals')
+)
+def update_metrics(n):
+    data_list = list(d)
     array_length = 10000
     my_global_fig.update_traces(
         x=np.linspace(0, 11, array_length),
-        y=list(data_list),
-        selector=dict(name='Data 1')
+        y=data_list,
     )
-    return my_global_fig
+    bs_data = baseline_shift(data_list, t_start=8, t_end=9)
+    filter_data = filtered(bs_data, f1=3, f2=30, sr=1000)
+    psd_data = show_psd(filter_data, welch_tw=0.8, sr=1000)
+    my_psd_fig.update_traces(
+        x=psd_data[0],
+        y=psd_data[1],
+    )
+    return my_global_fig, my_psd_fig
 
 
 # Press the green button in the gutter to run the script.
