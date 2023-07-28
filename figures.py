@@ -13,7 +13,7 @@ def init_figs():
                              paper_bgcolor='rgba(0,0,0,0)')
     global_fig.update_traces(line=dict(color="#CF382A", width=1))
     global_fig.update_xaxes(gridcolor="#B8B8B8")
-    global_fig.update_yaxes(range=[-100, 100], gridcolor="#B8B8B8")
+    global_fig.update_yaxes(range=[-80, 80], gridcolor="#B8B8B8")
 
     df = pd.DataFrame({"f/Hz": np.linspace(0, 51), "P": np.zeros(50)})
     psd_fig = go.Figure(data=[go.Scatter(x=df["f/Hz"], y=df["P"], mode='lines', line=dict(color='blue', width=1.5))])

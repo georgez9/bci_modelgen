@@ -3,8 +3,7 @@ from figures import init_figs
 from tcp_server import tcp_client_processing
 from multiprocessing import Process, Manager, Queue
 import numpy as np
-from analysis import baseline_shift, filtered, show_psd
-
+from analysis import baseline_shift, filtered, show_psd, clc_power
 
 my_global_fig, my_psd_fig = init_figs()
 realtime_flag = False
@@ -51,7 +50,43 @@ app.layout = html.Div([
     html.Div([
         html.Div([dcc.Graph(id='psd-graph', figure=my_psd_fig, className='psd-graph-graph')], className="psd-graph"),
         html.Div([
-            html.Div([], className='dash-board-frame')
+            html.Div([
+                html.Div([
+                    html.Label(["Sample Frequency: 1000Hz"], id='sample-freq'),
+                    html.Div(["Window Range: "], id='output-container-range-slider'),
+                    html.Label('Range Select: '),
+                    html.Button('1s', className='dash-board-button', style={'width': '50px'}, id='step-1'),
+                    html.Label(''),
+                    html.Button('2s', className='dash-board-button', style={'width': '50px'}, id='step-2'),
+                    html.Label(''),
+                    html.Button('3s', className='dash-board-button', style={'width': '50px'}, id='step-3'),
+                    html.Br(),
+                    html.Label('Move: '),
+                    html.Button('Backward', className='dash-board-button', id='step-b'),
+                    html.Label(''),
+                    html.Button('Forward', className='dash-board-button', id='step-f'),
+                    html.Br(),
+                    html.Label('Bandpass Filter: '),
+                    dcc.Input(value=8, type='number', id='bandpass-low', style={'width': '50px'}),
+                    html.Label('Hz ~ '),
+                    dcc.Input(value=30, type='number', id='bandpass-high', style={'width': '50px'}),
+                    html.Label('Hz'),
+                    html.Br(),
+                    html.Label("Welch PSD", style={'font-weight': 'bold'}),
+                    html.Br(),
+                    html.Label("Time Window Size: "),
+                    dcc.Input(value=2, type='number', id='welch-tw', style={'width': '50px'}),
+                    html.Br(),
+                    html.Label('Absolute Power: ', style={'font-weight': 'bold'}),
+                    # html.Br(),
+                    dcc.Input(value=8, type='number', style={'width': '50px'}, id='abs-low'),
+                    html.Label('Hz ~ '),
+                    dcc.Input(value=12, type='number', style={'width': '50px'}, id='abs-high'),
+                    html.Label('Hz'),
+                    html.Br(),
+                    html.Label('0', id='abs-power'),
+                ], style={'padding-top': '20px', 'padding-left': '50px'})
+            ], className='dash-board-frame')
         ], className='dash-board')
     ], style={'display': 'flex'})
 ])
@@ -105,6 +140,7 @@ def button_clicked(start_stop_clicks, exit_clicks):
 @callback(
     Output('sample-graph', 'figure'),
     Output('psd-graph', 'figure'),
+    Output('abs-power', 'children'),
     Input('interval-component', 'n_intervals')
 )
 def update_metrics(n):
@@ -121,7 +157,8 @@ def update_metrics(n):
         x=psd_data[0],
         y=psd_data[1],
     )
-    return my_global_fig, my_psd_fig
+    abs_power = clc_power(psd_data[0], psd_data[1], freq_low=8, freq_high=12)
+    return my_global_fig, my_psd_fig, abs_power
 
 
 # Press the green button in the gutter to run the script.
