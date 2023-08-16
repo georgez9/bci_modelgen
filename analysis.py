@@ -37,7 +37,10 @@ def clc_power(freq_axis, power_spect, freq_low=8, freq_high=12):
     # Find the intersection Values of the alpha band in the frequency vector [Eyes Closed]
     idx_alpha = logical_and(freq_axis >= freq_low, freq_axis <= freq_high)
     # Frequency Resolution
-    freq_res = freq_axis[1] - freq_axis[0]
+    try:
+        freq_res = freq_axis[1] - freq_axis[0]
+    except IndexError:
+        freq_res = 1
 
     # Compute the Absolute Power with numpy.trapz:
     alpha_power = trapz(power_spect[idx_alpha], dx=freq_res)

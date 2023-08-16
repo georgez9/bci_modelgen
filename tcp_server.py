@@ -2,6 +2,7 @@ from collections import deque
 import socket
 import json
 import threading
+from time import sleep
 
 import select
 import queue
@@ -77,7 +78,14 @@ class TCPClient(object):
 
 def tcp_client_processing(d, q):
     CONNECTION = TCPClient()
-    CONNECTION.connect()
+    connect_flag = False
+    while not connect_flag:
+        try:
+            CONNECTION.connect()
+            connect_flag = True
+        except ConnectionRefusedError:
+            sleep(3)
+
     CONNECTION.start(d)
     while True:
 

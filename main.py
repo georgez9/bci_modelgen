@@ -141,23 +141,27 @@ def button_clicked(start_stop_clicks, exit_clicks):
     Output('sample-graph', 'figure'),
     Output('psd-graph', 'figure'),
     Output('abs-power', 'children'),
+    Input('select-model', 'value'),
     Input('interval-component', 'n_intervals')
 )
-def update_metrics(n):
-    data_list = list(d)
-    array_length = 10000
-    my_global_fig.update_traces(
-        x=np.linspace(0, 11, array_length),
-        y=data_list,
-    )
-    bs_data = baseline_shift(data_list, t_start=8, t_end=9)
-    filter_data = filtered(bs_data, f1=3, f2=30, sr=1000)
-    psd_data = show_psd(filter_data, welch_tw=0.8, sr=1000)
-    my_psd_fig.update_traces(
-        x=psd_data[0],
-        y=psd_data[1],
-    )
-    abs_power = clc_power(psd_data[0], psd_data[1], freq_low=8, freq_high=12)
+def update_metrics(value, n):
+    if value == "Real-Time":
+        data_list = list(d)
+        array_length = 10000
+        my_global_fig.update_traces(
+            x=np.linspace(0, 11, array_length),
+            y=data_list,
+        )
+        bs_data = baseline_shift(data_list, t_start=8, t_end=9)
+        filter_data = filtered(bs_data, f1=3, f2=30, sr=1000)
+        psd_data = show_psd(filter_data, welch_tw=0.8, sr=1000)
+        my_psd_fig.update_traces(
+            x=psd_data[0],
+            y=psd_data[1],
+        )
+        abs_power = clc_power(psd_data[0], psd_data[1], freq_low=8, freq_high=12)
+    else:
+        abs_power = 0
     return my_global_fig, my_psd_fig, abs_power
 
 
