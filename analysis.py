@@ -44,6 +44,7 @@ def clc_power(freq_axis, power_spect, freq_low=8, freq_high=12):
 
     # Compute the Absolute Power with numpy.trapz:
     alpha_power = trapz(power_spect[idx_alpha], dx=freq_res)
+    alpha_power = round(alpha_power, 2)
     return alpha_power
 
 
