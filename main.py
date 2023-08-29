@@ -15,8 +15,6 @@ from svm_training import svm_train
 my_global_fig, my_psd_fig = init_figs()
 realtime_flag = False
 state_flag = 0
-clf_svm = load('svm_model.joblib')
-scaler = load('scaler.joblib')
 
 # Dash display
 app = Dash(__name__)
@@ -163,8 +161,8 @@ def update_metrics(n, value):
             y=data_list,
         )
         len_datalist = len(data_list)
-        if len_datalist > 1010:
-            bs_data = data_list[(len_datalist - 1001):(len_datalist - 1)]
+        if len_datalist > 9999:
+            bs_data = data_list[8*1000:9*1000]
             if state_flag == 1:
                 with open('./data/state1.txt', 'a') as file1:
                     file1.write(str(bs_data))
@@ -176,10 +174,10 @@ def update_metrics(n, value):
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-    with open('./data/state1.txt', 'w') as files1:
-        pass
-    with open('./data/state2.txt', 'w') as files2:
-        pass
+    # with open('./data/state1.txt', 'w') as files1:
+    #     pass
+    # with open('./data/state2.txt', 'w') as files2:
+    #     pass
     # shared variables between dash app and tcp/ip server
     with Manager() as manager:
         d = Manager().list()  # raw datas

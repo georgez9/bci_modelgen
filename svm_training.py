@@ -90,7 +90,7 @@ def svm_train():
         SVC(),
         param_grid,
         cv=5,
-        scoring='roc_auc',  # NOTE: The default value for scoring results in worse performance...
+        scoring='accuracy',  # NOTE: The default value for scoring results in worse performance...
         # For more scoring metics see:
         # https://scikit-learn.org/stable/modules/model_evaluation.html#scoring-parameter
         verbose=0  # NOTE: If you want to see what Grid Search is doing, set verbose=2
