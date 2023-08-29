@@ -64,32 +64,15 @@
     justify-content: center;
 }
 
-.range-slider{
-    background-color: white;
-    padding-left: 20%;
-    padding-right: 20%;
-    margin-top: -50px;
-}
-
-.psd-graph{
-    margin-top: -30px;
-    width: 40%;
-    /*border: 2px solid blue;*/
-}
-
-.psd-graph-graph{
-    float: right;
-    /*width: 90%;*/
-    /*border: 2px solid red;*/
-}
 
 .dash-board{
-    width: 60%
+    display: flex;
+    justify-content: center;
 }
 .dash-board-frame{
     background-color: white;
-    width: 70%;
-    height: 80%;
+    width: 50%;
+    height: 300px;
     /*border: 2px solid red;*/
     margin-top: 10px;
     margin-left: 20px;
