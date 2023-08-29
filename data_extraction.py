@@ -94,7 +94,7 @@ def output_psd_txt(file_path):
     elif file_path == './data/state2.txt':
         file_name = f"./data/state2_cvt.txt"
 
-    while n < 1500:
+    while n < 500:
         bs_data = baseline_shift(data_list, t_start=input_a, t_end=input_b)
 
         filter_delta = filtered(bs_data, f1=freq_low_delta, f2=freq_high_delta, sr=psd_sr)

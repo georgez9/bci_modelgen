@@ -22,7 +22,7 @@ def svm_train():
     y = df['state'].copy()
     X_train, X_test, y_train, y_test = train_test_split(X_encoded, y, random_state=42)
     scaler = preprocessing.StandardScaler().fit(X_train)
-    dump(scaler, 'scaler.joblib')
+    dump(scaler, './model/scaler.joblib')
     X_train_scaled = scaler.transform(X_train)
     X_test_scaled = scaler.transform(X_test)
 
@@ -47,7 +47,7 @@ def svm_train():
     C, gamma = optimal_params.best_params_['C'], optimal_params.best_params_['gamma']
     clf_svm = SVC(random_state=42, C=C, gamma=gamma)
     clf_svm.fit(X_train_scaled, y_train)
-    dump(clf_svm, 'svm_model.joblib')  # save model
+    dump(clf_svm, './model/svm_model.joblib')  # save model
     ConfusionMatrixDisplay.from_estimator(clf_svm,
                                           X_test_scaled,
                                           y_test,
