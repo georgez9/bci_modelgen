@@ -5,8 +5,6 @@ from multiprocessing import Process, Manager, Queue
 import numpy as np
 from analysis import baseline_shift, filtered, show_psd, clc_power
 import datetime
-from sklearn import preprocessing  # scale and center data
-from sklearn.svm import SVC
 from joblib import load
 import pandas as pd
 from data_extraction import output_psd_txt
